@@ -27,6 +27,7 @@
 
 #include "imgur.h"
 #include "twilio.h"
+#include "config.h"
 
 #define CMD_LENGTH 500
 
@@ -38,8 +39,6 @@
 #define IMGUR_UPLOAD 0
 #define PLAY_AUDIO 1
 #define TRANSPARENT 1
-
-#define LOCK_ATTEMPTS_MAX 5
 
 char *g_pw = NULL;
 int lock_tries = 0;
