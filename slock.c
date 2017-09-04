@@ -267,7 +267,7 @@ webcam_shot(int async) {
     cmd,
     CMD_LENGTH,
     "ffmpeg -y -loglevel quiet -f video4linux2 -i /dev/video0"
-    " -frames:v 1 -f image2 %s/slock.jpg%s",
+    " -frames:v 1 -f image2 %s" SLOCK_DIRECTORY "/slock.jpg%s",
     getenv("HOME"),
     async ? " &" : ""
   );
@@ -334,8 +334,8 @@ imgur_upload(char **link, char **hash) {
     CMD_LENGTH,
     "curl -s -A '' -X POST"
     " -H 'Authorization: Client-ID " IMGUR_CLIENT "'"
-    " -F 'image=@%s/slock.jpg'"
-    " 'https://api.imgur.com/3/image' > %s/slock_imgur.curl",
+    " -F 'image=@%s" SLOCK_DIRECTORY "/slock.jpg'"
+    " 'https://api.imgur.com/3/image' > %s" SLOCK_DIRECTORY "/slock_imgur.curl",
     HOME,
     HOME
   );
@@ -349,11 +349,11 @@ imgur_upload(char **link, char **hash) {
   r = snprintf(
     cmd,
     CMD_LENGTH,
-    "cat %s/slock_imgur.curl"
+    "cat %s" SLOCK_DIRECTORY "/slock_imgur.curl"
     " | grep -o '\"link\":\"[^\"]\\+'"
     " | sed 's/\\\\//g'"
     " | grep -o '[^\"]\\+$'"
-    " > %s/slock_imgur.link",
+    " > %s" SLOCK_DIRECTORY "/slock_imgur.link",
     HOME,
     HOME
   );
@@ -367,10 +367,10 @@ imgur_upload(char **link, char **hash) {
   r = snprintf(
     cmd,
     CMD_LENGTH,
-    "cat %s/slock_imgur.curl"
+    "cat %s" SLOCK_DIRECTORY "/slock_imgur.curl"
     " | grep -o '\"deletehash\":\"[^\"]\\+'"
     " | grep -o '[^\"]\\+$'"
-    " > %s/slock_imgur.hash",
+    " > %s" SLOCK_DIRECTORY "/slock_imgur.hash",
     HOME,
     HOME
   );
@@ -380,14 +380,14 @@ imgur_upload(char **link, char **hash) {
 
   system(cmd);
 
-  r = snprintf(cmd, CMD_LENGTH, "%s/slock_imgur.link", HOME);
+  r = snprintf(cmd, CMD_LENGTH, "%s" SLOCK_DIRECTORY "/slock_imgur.link", HOME);
 
   if (r < 0 || r >= CMD_LENGTH)
     goto cleanup;
 
   *link = read_file(cmd);
 
-  r = snprintf(cmd, CMD_LENGTH, "%s/slock_imgur.hash", HOME);
+  r = snprintf(cmd, CMD_LENGTH, "%s" SLOCK_DIRECTORY "/slock_imgur.hash", HOME);
 
   if (r < 0 || r >= CMD_LENGTH)
     goto cleanup;
@@ -395,17 +395,17 @@ imgur_upload(char **link, char **hash) {
   *hash = read_file(cmd);
 
 cleanup:
-  r = snprintf(cmd, CMD_LENGTH, "%s/slock_imgur.curl", HOME);
+  r = snprintf(cmd, CMD_LENGTH, "%s" SLOCK_DIRECTORY "/slock_imgur.curl", HOME);
 
   if (r >= 0 && r < CMD_LENGTH)
     unlink(cmd);
 
-  r = snprintf(cmd, CMD_LENGTH, "%s/slock_imgur.link", HOME);
+  r = snprintf(cmd, CMD_LENGTH, "%s" SLOCK_DIRECTORY "/slock_imgur.link", HOME);
 
   if (r >= 0 && r < CMD_LENGTH)
     unlink(cmd);
 
-  r = snprintf(cmd, CMD_LENGTH, "%s/slock_imgur.hash", HOME);
+  r = snprintf(cmd, CMD_LENGTH, "%s" SLOCK_DIRECTORY "/slock_imgur.hash", HOME);
 
   if (r >= 0 && r < CMD_LENGTH)
     unlink(cmd);
@@ -459,7 +459,7 @@ play_beep(int async) {
   int r = snprintf(
     cmd,
     CMD_LENGTH,
-    "aplay %s/slock/beep.wav 2> /dev/null%s",
+    "aplay %s" SLOCK_DIRECTORY "/beep.wav 2> /dev/null%s",
     getenv("HOME"),
     async ? " &" : ""
   );
@@ -481,7 +481,7 @@ play_alarm(int async) {
   int r = snprintf(
     cmd,
     CMD_LENGTH,
-    "aplay %s/slock/police.wav 2> /dev/null%s",
+    "aplay %s" SLOCK_DIRECTORY "/police.wav 2> /dev/null%s",
     getenv("HOME"),
     async ? " &" : ""
   );
@@ -915,7 +915,7 @@ read_pw_file(void) {
   int r = snprintf(
     name,
     sizeof(name),
-    "%s/.slock_passwd",
+    "%s" SLOCK_DIRECTORY "/.slock_passwd",
     getenv("HOME")
   );
 
