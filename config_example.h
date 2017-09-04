@@ -12,4 +12,4 @@
 #define VALID_AUTH_SOUND "beep.wav"
 
 // Invalid authentication Alarm sound
-#define INVALID_AUTH_ALARM_SOUND "alarm.wav"
+#define INVALID_AUTH_ALARM_SOUND "police.wav"
