@@ -459,7 +459,7 @@ play_beep(int async) {
   int r = snprintf(
     cmd,
     CMD_LENGTH,
-    "aplay %s" SLOCK_DIRECTORY "/beep.wav 2> /dev/null%s",
+    "aplay %s" SLOCK_DIRECTORY "/" VALID_AUTH_SOUND " 2> /dev/null%s",
     getenv("HOME"),
     async ? " &" : ""
   );
@@ -481,7 +481,7 @@ play_alarm(int async) {
   int r = snprintf(
     cmd,
     CMD_LENGTH,
-    "aplay %s" SLOCK_DIRECTORY "/police.wav 2> /dev/null%s",
+    "aplay %s" SLOCK_DIRECTORY "/" INVALID_AUTH_ALARM_SOUND " 2> /dev/null%s",
     getenv("HOME"),
     async ? " &" : ""
   );

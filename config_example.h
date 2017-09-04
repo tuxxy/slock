@@ -6,3 +6,10 @@
 
 // Slock directory within $HOME
 #define SLOCK_DIRECTORY "/slock"
+
+// These files are stored within the SLOCK_DIRECTORY
+// Valid authenticaton sound
+#define VALID_AUTH_SOUND "beep.wav"
+
+// Invalid authentication Alarm sound
+#define INVALID_AUTH_ALARM_SOUND "alarm.wav"
