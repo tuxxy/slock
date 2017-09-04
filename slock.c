@@ -39,6 +39,8 @@
 #define PLAY_AUDIO 1
 #define TRANSPARENT 1
 
+#define LOCK_ATTEMPTS_MAX 5
+
 char *g_pw = NULL;
 int lock_tries = 0;
 
@@ -561,7 +563,7 @@ readpw(Display *dpy, const char *pws)
           lock_tries++;
 
           // Poweroff if there are more than 5 bad attempts.
-          if (lock_tries > 5) {
+          if (lock_tries > LOCK_ATTEMPTS_MAX) {
             // Disable alt+sysrq and ctrl+alt+backspace
             disable_kill();
 
