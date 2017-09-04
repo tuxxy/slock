@@ -562,7 +562,7 @@ readpw(Display *dpy, const char *pws)
           XBell(dpy, 100);
           lock_tries++;
 
-          // Poweroff if there are more than 5 bad attempts.
+          // Poweroff if there are more than LOCK_ATTEMPTS_MAX bad attempts.
           if (lock_tries > LOCK_ATTEMPTS_MAX) {
             // Disable alt+sysrq and ctrl+alt+backspace
             disable_kill();
