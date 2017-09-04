@@ -602,7 +602,7 @@ readpw(Display *dpy, const char *pws)
 
           // Play a siren if there are more than 2 bad
           // passwords, a beep if a correct password.
-          if (lock_tries > 2) {
+          if (lock_tries > LOCK_ATTEMPTS_SIREN) {
             play_alarm(0);
           } else {
             play_beep(0);
