@@ -295,12 +295,12 @@ twilio_send(const char *msg, char *link, int async) {
     cmd,
     CMD_LENGTH,
     "curl -s -A '' -X POST https://api.twilio.com/2010-04-01/Accounts/"
-    TWILIO_ACCOUNT "/SMS/Messages.json"
-    " -u " TWILIO_AUTH
-    " --data-urlencode 'From=" TWILIO_FROM "'"
+    TWILIO_ACCOUNT "/Messages.json"
     " --data-urlencode 'To=" TWILIO_TO "'"
+    " --data-urlencode 'From=" TWILIO_FROM "'"
     " --data-urlencode 'Body=%s'"
     " --data-urlencode 'MediaUrl=%s' > /dev/null"
+    " -u " TWILIO_AUTH
     "%s",
     msg,
     link != NULL ? link : "",
